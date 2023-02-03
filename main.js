@@ -1,3 +1,14 @@
+const winningConditions = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [6, 4, 2],
+];
+
 //first step: attach event listener (submit) to form to get user data
 const form = document.querySelector("#myForm");
 form.addEventListener("submit", (event) => {
@@ -59,10 +70,9 @@ const playMove = (box, data) => {
 
   //increase the round #
   data.round++;
+  console.log(box, data);
 
   //check win conditions
-
-  console.log(box, data);
 };
 //initialize the game
 
