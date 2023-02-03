@@ -9,6 +9,11 @@ const winningConditions = [
   [6, 4, 2],
 ];
 
+i am learning how to use source control in vscode
+
+
+practice!
+
 //first step: attach event listener (submit) to form to get user data
 const form = document.querySelector("#myForm");
 form.addEventListener("submit", (event) => {
