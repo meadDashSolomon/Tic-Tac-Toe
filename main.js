@@ -1,3 +1,15 @@
+//initialize the game
+
+//check which game mode we're playing
+
+//set win conditions
+
+//determine current player
+
+//after each move, check win conditions. if not met, then next player is active
+
+//human vs human. easy AI. hard AI.
+
 const winningConditions = [
   [0, 1, 2],
   [3, 4, 5],
@@ -72,16 +84,37 @@ const playMove = (box, data) => {
   data.round++;
   console.log(box, data);
 
-  //check win conditions
+  //check end conditions
+  if (endConditions(data)) {
+    //adjust DOM to reflect end conditions
+  }
 };
-//initialize the game
 
-//check which game mode we're playing
+const endConditions = (data) => {
+  //3 potential options
+  //winner
+  //tie
+  //game not over yet
+  if (checkWinner(data)) {
+    //adjust dom to reflect win
+    return true;
+  } else if (data.round === 9) {
+    //adjust dom to reflect win
+    return true;
+  }
+  return false;
+};
 
-//set win conditions
-
-//determine current player
-
-//after each move, check win conditions. if not met, then next player is active
-
-//human vs human. easy AI. hard AI.
+const checkWinner = (data) => {
+  let result = false;
+  winningConditions.forEach((condition) => {
+    if (
+      data.board[condition[0]] === data.board[condition[1]] &&
+      data.board[condition[1]] === data.board[condition[2]]
+    ) {
+      data.gameOver = true;
+      result = true;
+    }
+  });
+  return result;
+};
