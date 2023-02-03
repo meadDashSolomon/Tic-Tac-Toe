@@ -67,14 +67,16 @@ const initializeGame = (data) => {
 };
 
 const playMove = (box, data) => {
-  //is game over? if so, don't do anything.
-  if (data.gameOver || data.round > 8) {
+  //if game is over, there's been 9 rounds, or box has a letter, then don't do anything.
+  if (
+    data.gameOver ||
+    data.round > 8 ||
+    data.board[box.id] === "X" ||
+    data.board[box.id] === "O"
+  ) {
     return;
   }
-  //check if box has a letter, if so, don't do anything
-  if (data.board[box.id] === "X" || data.board[box.id] === "O") {
-    return;
-  }
+
   //adjust DOM for player move, then check win conditions
   data.board[box.id] = data.currentPlayer;
   box.textContent = data.currentPlayer;
