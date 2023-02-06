@@ -60,6 +60,7 @@ const addEventListenersToGameBoard = (data) => {
 //factory function? data is a const variable that's an object containing the form info.
 const initializeGame = (data) => {
   //initialize game variables
+  adjustDom("displayTurn", `${data.player1Name}'s turn`);
   initializeVariables(data);
 
   //add event listeners to gameboard
@@ -84,12 +85,15 @@ const playMove = (box, data) => {
 
   //increase the round #
   data.round++;
-  console.log(box, data);
 
   //check end conditions
   if (endConditions(data)) {
-    //adjust DOM to reflect end conditions
+    return;
   }
+
+  //change current player
+  //change the dom, and ∆ data.currentPlayer
+  changePlayer(data);
 };
 
 const endConditions = (data) => {
@@ -105,6 +109,8 @@ const endConditions = (data) => {
     return true;
   } else if (data.round === 9) {
     //adjust dom to reflect win
+    adjustDom("displayTurn", "Tie game. You both lose.");
+    //data.gameOver = true;
     return true;
   }
   return false;
@@ -127,4 +133,12 @@ const checkWinner = (data) => {
 const adjustDom = (className, textContent) => {
   const elem = document.querySelector(`.${className}`);
   elem.textContent = textContent;
+};
+
+const changePlayer = (data) => {
+  data.currentPlayer = data.currentPlayer === "X" ? "O" : "X";
+  //adjust the dom
+  let displayTurnText =
+    data.currentPlayer === "X" ? data.player1Name : data.player2Name;
+  adjustDom("displayTurn", `${displayTurnText}'s turn`);
 };
