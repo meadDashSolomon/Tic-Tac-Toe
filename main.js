@@ -23,6 +23,14 @@ const winningConditions = [
 
 //first step: attach event listener (submit) to form to get user data
 const form = document.querySelector("#myForm");
+const newGameBtn = document.querySelector("#restartBtn");
+
+const resetGameBtn = document.querySelector("#resetBtn");
+
+newGameBtn.addEventListener("click", () => {
+  location.reload();
+});
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -49,11 +57,23 @@ const initializeVariables = (data) => {
   data.gameOver = false;
 };
 
+const resetDom = () => {
+  document.querySelectorAll(".box").forEach((box) => {
+    box.className = "box";
+    box.textContent = "";
+  });
+};
+
 const addEventListenersToGameBoard = (data) => {
   document.querySelectorAll(".box").forEach((box) => {
     box.addEventListener("click", (event) => {
       playMove(event.target, data);
     });
+  });
+  resetGameBtn.addEventListener("click", () => {
+    initializeVariables(data);
+    resetDom();
+    adjustDom("displayTurn", `${data.player1Name}'s turn`);
   });
 };
 
